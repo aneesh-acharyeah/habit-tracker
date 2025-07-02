@@ -5,17 +5,14 @@ const HabitCard = ({ habit, onToggleToday, onDelete }) => {
     const isDoneToday = habit.completedDates.includes(today);
 
     const getStreak = () => {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const dateSet = new Set(habit.completedDates); // Now ISO format: "2025-06-29"
+        const dateSet = new Set(habit.completedDates);
         let streak = 0;
 
         const checkDate = new Date();
-        checkDate.setHours(0, 0, 0, 0);
 
         while (true) {
-            const dateStr = checkDate.toISOString().split('T')[0];
+            const dateStr = checkDate.toISOString().split("T")[0];
+
             if (dateSet.has(dateStr)) {
                 streak++;
                 checkDate.setDate(checkDate.getDate() - 1);
@@ -26,6 +23,7 @@ const HabitCard = ({ habit, onToggleToday, onDelete }) => {
 
         return streak;
     };
+
 
 
 
