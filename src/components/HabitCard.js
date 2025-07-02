@@ -8,22 +8,17 @@ const HabitCard = ({ habit, onToggleToday, onDelete }) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        const dates = habit.completedDates
-            .map(dateStr => {
-                const d = new Date(dateStr);
-                d.setHours(0, 0, 0, 0); // Normalize time
-                return d;
-            })
-            .sort((a, b) => b - a);
-
+        const dateSet = new Set(habit.completedDates); // Now ISO format: "2025-06-29"
         let streak = 0;
-        let day = new Date();
-        day.setHours(0, 0, 0, 0);
 
-        for (let i = 0; i < dates.length; i++) {
-            if (dates[i].getTime() === day.getTime()) {
+        const checkDate = new Date();
+        checkDate.setHours(0, 0, 0, 0);
+
+        while (true) {
+            const dateStr = checkDate.toISOString().split('T')[0];
+            if (dateSet.has(dateStr)) {
                 streak++;
-                day.setDate(day.getDate() - 1); // Move to previous day
+                checkDate.setDate(checkDate.getDate() - 1);
             } else {
                 break;
             }
@@ -31,6 +26,7 @@ const HabitCard = ({ habit, onToggleToday, onDelete }) => {
 
         return streak;
     };
+
 
 
     return (
