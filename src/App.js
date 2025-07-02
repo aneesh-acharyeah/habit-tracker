@@ -23,20 +23,22 @@ function App() {
   };
 
   const toggleToday = (id) => {
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toISOString().split('T')[0]; // "2025-06-29"
+
     setHabits((prev) =>
       prev.map((habit) =>
         habit.id === id
           ? {
-              ...habit,
-              completedDates: habit.completedDates.includes(today)
-                ? habit.completedDates.filter((d) => d !== today)
-                : [...habit.completedDates, today],
-            }
+            ...habit,
+            completedDates: habit.completedDates.includes(today)
+              ? habit.completedDates.filter((d) => d !== today)
+              : [...habit.completedDates, today],
+          }
           : habit
       )
     );
   };
+
 
   const deleteHabit = (id) => {
     setHabits(habits.filter((h) => h.id !== id));
