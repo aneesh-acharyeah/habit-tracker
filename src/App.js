@@ -23,7 +23,7 @@ function App() {
   };
 
   const toggleToday = (id) => {
-    const today = new Date().toISOString().split('T')[0]; // "2025-06-29"
+    const today = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"
 
     setHabits((prev) =>
       prev.map((habit) =>
@@ -38,6 +38,7 @@ function App() {
       )
     );
   };
+
 
 
   const deleteHabit = (id) => {
